@@ -1,0 +1,35 @@
+vytvořte implementaci hry vrchcáby
+podpora 1v1 / 1vAI
+
+povinná funkčnost:
+    generování hodu kostkami
+    výpis všech možných tahů hráče
+    jednoduchá umělá inteligence, která náhodně volí jeden z platných tahů
+    trasování chodu každého jednotlivého kamene (od vstupu z baru po vyhození/vyvedení)
+    herní pole se chovají jako zásobník
+    uložení a obnova stavu hry (s návrhem vlastního JSON formátu pro uložení)
+
+zobrazování displaye:
+    výsledky hodů kostkami
+    pozice všech kamenů na deste (včetně těch na baru)
+    stručný koměntář tohoi, co se ve hře událo a nemusí být zřejmé ze zobrazení na desce
+    (kámen vstoupil do hry, byl vyhozen, opustil hru, hráč nemůže hrát)
+    počet vyvedených kamenů
+    po výhře typ výhry
+    po ukončení se zobrazí statistika o všech kamenech ve hře (zvlášť pro b/č):
+        počet kamenů vyvedených, vyhozených, opuštěných
+        průměrná životnost kamene v tazích
+
+*nepovinná funkčnost:
+    GUI rozhraní
+    inteligentnější AI
+
+implementované třídy:
+    Hra (herní deska)
+    obsahuje:
+        herní pole (zásobník, lze vkládaqt jen kameny stejných barev)
+        dvojkostka (vrací seznam možných dvojic či čtveřic)
+        Bar (továrna na herní kameny s řízenou produkcí)
+        Herní kámen (s pamětí, kde se postupně nacházel)
+    Hráč:
+        Konzolový/AI
