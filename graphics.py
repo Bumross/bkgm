@@ -40,6 +40,8 @@ class Graphics:
 
     @classmethod
     def draw_block(self, list, a , b, c, h, sec):
+        if sec == -1 and h is not -1:
+            h = self.dict_for_pos[h]
         #prints whole half board
         for i in range(a, b, c):
             row = ""

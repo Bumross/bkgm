@@ -35,7 +35,7 @@ class Game():
 
     def init_board(self):
         while True:
-            load_from_json = input("0 -> start new game | 1 -> load game: ")
+            load_from_json = input("0 -> start new game   | 1 -> load game: ")
             if load_from_json =="0" or load_from_json == "1":
                 break
 
