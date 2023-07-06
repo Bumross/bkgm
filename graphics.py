@@ -11,8 +11,6 @@ class Graphics:
 
     @classmethod
     def draw(self, board, highligted):
-        
-        os.system("clear")
 
         print("  ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓")
         print("  ┣13━14━15━16━17━18┳━━━┳19━20━21━22━23━24┫")
@@ -40,7 +38,7 @@ class Graphics:
 
     @classmethod
     def draw_block(self, list, a , b, c, h, sec):
-        if sec == -1 and h is not -1:
+        if sec == -1 and h != -1 and h<12:
             h = self.dict_for_pos[h]
         #prints whole half board
         for i in range(a, b, c):

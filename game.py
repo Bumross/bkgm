@@ -1,6 +1,9 @@
 from file_loader import FileLoader
 from graphics import Graphics
 from dice import Dice
+from checker import Checker
+from termcolor import colored
+import os
 
 class Game():
 
@@ -12,8 +15,9 @@ class Game():
         self._player_on_turn = 0
         self._dfl = FileLoader("default.json")
         self._ai_color = None
-        self._highlihted = 0
+        self._highlighted = 0
         self._diceroll = None
+#        self._checkers = []
 
 
     def start(self):
@@ -30,7 +34,7 @@ class Game():
 
 
     def draw(self):
-        Graphics.draw(self._board, self._highlihted)
+        Graphics.draw(self._board, self._highlighted)
 
 
     def init_board(self):
@@ -63,30 +67,50 @@ class Game():
         columns = self._dfl.load_game()
         return columns
 
+    #def promote_checkers(self, columns):
+    #    i = 1
+    #    for position in columns:
+    #        if len(position) != 1:
+    #            self._checkers.append(Checker(position[1], i))
+    #        i += 1
+
 
 
     def update(self):
         if not self._ai:
-            print("Player with " + ("cross" if self._player_on_turn == 0 else "rounds") + " is on turn!")
+            print("Player with " + colored("cross" if self._player_on_turn == 0 else "rounds", "green") + " is on turn!")
         else:
             print("You are on turn!")
 
         #add the alert of checkers on bar / finished checkers
 
         self._diceroll = Dice.dice_values()
-        print(f"The dice numbers are: {self._diceroll[0], self._diceroll[1]}")
+        Dice.print_dice(self._diceroll)
 
-        if self._ai == 2 or (self._ai ==1 and self._player_on_turn == self._ai_color):
-            self.require_ai_to_highlight_figure()
+        for i in range(2):
+            if self._ai == 2 or (self._ai ==1 and self._player_on_turn == self._ai_color):
+                self.require_ai_to_highlight_figure()
+            else:
+                self.require_player_to_highlight_figure()
+
+            self.draw()
+
+            if self._ai == 2 or (self._ai == 1 and self._player_on_turn == self._ai_color):
+                self.require_ai_to_move()
+            else:
+                self.require_player_to_move()
+
+            self._highlighted = 0
+            self.draw()
+
+        os.system("cls")
+        if self._player_on_turn == 0:
+            self._player_on_turn = 1
         else:
-            self.require_player_to_highlight_figure()
+            self._player_on_turn = 0
 
-        self.draw()
 
-        if self._ai == 2 or (self._ai == 1 and self._player_on_turn == self._ai_color):
-            self.require_ai_to_move()
-        else:
-            self.require_player_to_move()
+        self._fl.save_game(self._board)
 
 
 
@@ -98,16 +122,44 @@ class Game():
                 print("Number of column is not valid")
                 continue
             
-            self._highlihted = column
+            self._highlighted = column
             return
 
 
+    def require_player_to_move(self):
+        while True:
+            column = int(input("Choose column destination: "))
+        
+
+            #testing if he can move on column
+            self.move_checker(column)
+            self.del_checker()
+            return
+
+        #high checker najdu a v boardě ho přičtu jinam a smažu ho z boardy
+
+   
+    def move_checker(self, column):
+        if len(self._board[column-1]) == 1:
+            self._board[column-1] = [1, self._board[self._highlighted-1][1]]
+        else:
+            self._board[column-1][0] += 1
+
+
+    
+    def del_checker(self):
+        if self._board[self._highlighted-1][0] == 1:
+            self._board[self._highlighted-1] = [-1]
+        else:
+            self._board[self._highlighted-1][0] -= 1
+
+        
 
     def play_vs_ai_prompt(self):
         #setting the game, choosing playstyle and color
         while True:
             try:
-                self._ai = int(input("0 -> two players game | 1 -> game against AI | 2 -> AI vs AI: "))
+                self._ai = int(input("0 -> two players game | 1 -> game against AI (unsupported) | 2 -> AI vs AI (unsupported): "))
                 if self._ai == 1:
                     while True:
                         try:
