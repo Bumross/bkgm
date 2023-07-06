@@ -21,3 +21,17 @@ class FileLoader:
 
 
         return(lst)
+    
+
+    def save_game(self, board):
+
+        dict_file = {}
+
+        i = 1
+        for column in board:
+            if len(column) != 1:
+                dict_file[i] = {"number": column[0], "color": column[1]}
+            i += 1
+
+        with open(self.filename, "w") as outfile:
+            json.dump(dict_file, outfile)
