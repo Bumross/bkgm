@@ -7,6 +7,15 @@ class Graphics:
     CHECKER_TYPE_A = "x"
     CHECKER_TYPE_B = "o"
     dict_for_pos = {0:11, 1:10, 2:9, 3:8, 4:7, 5:6, 6:5, 7:4, 8:3, 9:2, 10:1, 11:0}
+    ref = {
+        1: ["┎───┒", "┃ 1 ┃","┖───┚" ],
+        2: ["┎───┒", "┃ 2 ┃","┖───┚" ],
+        3: ["┎───┒", "┃ 3 ┃","┖───┚" ],
+        4: ["┎───┒", "┃ 4 ┃","┖───┚" ],
+        5: ["┎───┒", "┃ 5 ┃","┖───┚" ],
+        6: ["┎───┒", "┃ 6 ┃","┖───┚" ]
+        }
+
 
 
     @classmethod
@@ -45,3 +54,10 @@ class Graphics:
             row = ""
             row += "  ┃" + self.draw_rows(list[:6], row, i, h, 0, 5) + "┃   ┃" + self.draw_rows(list[6:], row, i, h, 6, 11) + "┃"
             print(row)
+
+    @classmethod
+    def print_dice(self, values):
+        val_1, val_2 = self.ref[values[0]], self.ref[values[1]]
+        for i in range(3):
+            print("                " + val_1[i] + "   " + val_2[i])
+        
