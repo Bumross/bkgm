@@ -17,7 +17,7 @@ class Game():
         self._ai_color = None
         self._highlighted = 0
         self._diceroll = None
-#        self._checkers = []
+#       self._checkers = []
 
 
     def start(self):
@@ -43,19 +43,19 @@ class Game():
             if load_from_json =="0" or load_from_json == "1":
                 break
 
-        if load_from_json:
+        if load_from_json == "1":
             try:
                 return self.load_columns_from_json()
             except FileNotFoundError:
                 print("File not found :(")
-                return self.load_default_board()
+                return self.load_default_columns()
             except Exception as e:
                 print(e)
                 print("Loading the base structure")
-                return self.load_default_board()
+                return self.load_default_columns()
         
         else:
-            return self.load_default_board()
+            return self.load_default_columns()
 
 
     def load_columns_from_json(self):
@@ -85,7 +85,7 @@ class Game():
         #add the alert of checkers on bar / finished checkers
 
         self._diceroll = Dice.dice_values()
-        Dice.print_dice(self._diceroll)
+        Graphics.print_dice(self._diceroll)
 
         for i in range(2):
             if self._ai == 2 or (self._ai ==1 and self._player_on_turn == self._ai_color):
