@@ -34,3 +34,5 @@ class Checker:
 
     def move_is_valid(self, col, cur_col, board):
         pass
+    # 3 couldnt be valid move but 7 could
+    # 3+4 nonvalid and 4+3 valid
