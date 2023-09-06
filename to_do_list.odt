@@ -1,0 +1,11 @@
+double dice (Danda stuff)
+
+
+eliminate wrong moves
+    - max 6 checkers on one column
+    - move piece on column with same color
+        OR on column with one opposite checker (step on me)
+    - moving with ckeckers the right way for each player
+
+
+clear the terminal after turn
